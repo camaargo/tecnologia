@@ -1,78 +1,116 @@
-/* Resetando alguns estilos padrões */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --text-color: #DBE4EF;
+    --card-front-color: #144480;
+    --card-back-color: #00F4BF;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0bfe4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background: url('img/bg-desktop.webp');
+    font-family: Bai Jamjuree;
 }
 
-.flashcards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Mudando para 4 cards por linha */
-    gap: 20px;
-    padding: 20px;
-    max-width: 1000px;
+#container {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 4rem;
+    gap: 3rem;
 }
 
-.card {
-    background-color: #b0f3fc;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    height: 200px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.5s ease-in-out;
+.cartao {
+    margin: 1rem 1rem;
+    height: 20rem;
+    flex-grow: 1;
+    flex-basis: calc(33% - 6rem);
 }
 
-.card:hover {
-    transform: rotateY(180deg); /* Efeito de flip */
-}
-
-.card .question,
-.card .answer {
-    position: absolute;
-    width: 100%;
+.cartao__conteudo {
+    background-color: var(--card-front-color);
+    text-align: center;
+    /* background-color: aquamarine; */
     height: 100%;
-    backface-visibility: hidden; /* Impede que o conteúdo do verso apareça ao virar o card */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    transform-style: preserve-3d;
+    transition: transform 300ms ease-in-out;
 }
 
-.question {
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #bdffde;
-    color: #333;
-    z-index: 2; /* Fica na frente inicialmente */
+.cartao__conteudo h3 {
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    text-align: left;
+    padding: 0.5rem;
+    position: absolute;
+    margin: 0.6rem;
+    border-radius: 0.6rem;
+    font-size: 1vw;
+    backface-visibility: hidden;
 }
 
-.answer {
-    font-size: 16px;
-    color: #070707;
-    background-color: #87f0bb;
-    opacity: 0;
-    visibility: hidden;
-    transform: rotateY(180deg); /* A resposta começa virada para o verso */
-    z-index: 1; /* Fica atrás inicialmente */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.cartao__conteudo p {
+    margin-top: 1rem;
+    padding: 2rem;
+    margin-top: 4rem;
+    font-size: 1.4vw;
 }
 
-.card:hover .answer {
-    opacity: 1;
-    visibility: visible;
-    z-index: 2;
+.cartao__conteudo__pergunta p {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.cartao__conteudo__resposta p {
+    color: var(--card-back-color);
+    font-weight: 700;
+}
+
+.cartao.active .cartao__conteudo {
+    transform: rotateY(180deg);
+}
+
+.cartao__conteudo__pergunta,
+.cartao__conteudo__resposta {
+    backface-visibility: hidden;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.cartao__conteudo__resposta {
+    transform: rotateY(180deg);
+    background-color: rgba(0, 244, 191, 0.2);
+    border: 4px solid var(--card-back-color);
+}
+
+footer {
+    background-color: black;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 2rem;
+}
+
+footer p {
+    text-align: center;
+    font-size: 0.6rem;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 560px) {
+    
+    body {
+        background: url('img/bg-mobile.webp'), no-repeat cover;
+    }
+
+    .cartao {
+        flex: 1 0 calc(100% - 1rem)
+    }
+
+    .cartao__conteudo h3 {
+        font-size: 3vw;
+    }
+
+    .cartao__conteudo p {
+        font-size: 3.8vw;
+    }
 }
